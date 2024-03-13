@@ -65,20 +65,29 @@ class Transaction:
         self.output_list=output_list
         self.signature=self.sign_txn()
     
+    #signs the transaction hash
     def sign_txn(self):
-        sha=hashlib.sha256()
-        sha.update((str(self.owner)+str(self.input_list)+str(self.output_list)+str(self.signature)).encode('utf-8'))
-        return sha.hexdigest()
+        data = str(self.owner) + str(self.input_list) + str(self.output_list)
+        hashed_data = hashlib.sha256(data.encode()).hexdigest()
+        # Sign the hashed data with the global private key
+        signature = MINER_PRIVKEY.sign(hashed_data)
+        return signature
     
-    def verify_sign(self,signature):
-        calculated_sign = sign_txn(self)
-        pass
+    #verifies the signature of the transaction given against the given public key
+    def verify_signature(self, public_key):
+        data = str(self.owner) + str(self.input_list) + str(self.output_list)
+        hashed_data = hashlib.sha256(data.encode()).digest()
+        try:
+            # Verify the signature using the provided public key
+            return public_key.verify(self.signature, hashed_data)
+        except ecdsa.BadSignatureError:
+            return False
 
 
 class Txn_Input_Item:
-    def __init__(self, prev_txn_hash, block_index, output_index):
-        self.prev_txn_hash=prev_txn_hash
+    def __init__(self, block_index, prev_txn_hash, output_index):
         self.block_index=block_index
+        self.prev_txn_hash=prev_txn_hash
         self.output_index=output_index
 
 
@@ -92,10 +101,11 @@ def create_genesis_block():
 
 def verify_txn(transaction):
     #checking signature
-        transaction
+    if not transaction.verify_sign():
+        return False
     #checking input sources
+    input_list = transaction.input_list
     #checking output sum
-    pass
 
 def mine():
 
