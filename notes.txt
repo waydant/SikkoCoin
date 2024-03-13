@@ -1,0 +1,29 @@
+Shortcomings of simple coins
+
+- [ ]  permissioned setting(no. of participants is static)
+- [ ]  Block structure
+    - [ ]  Difficulty threshold
+- [ ]  Validation of blocks is not implemented
+- [ ]  Validation of transactions
+- [ ]  Make a central authority who maintains pool of transaction\
+
+
+User encompasses
+    individual blockchain
+    individual pool of transactions(updates the list from common pool of transactions(counter based))
+
+
+block
+    
+
+txn input
+    txn_hash 
+    block index
+    output index
+
+    using the block index, we go to the block and then from the list of transactions we search the transaction.
+    a transaction in a block is whole {transaction,hash}.
+    after getting the transaction see the output index. Also verify that the corresponding output index isnt used in further blocks
+
+verify_txn
+    signing the hash of input_list, output_list, owner.
