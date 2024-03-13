@@ -92,7 +92,7 @@ def create_genesis_block():
 
 def verify_txn(transaction):
     #checking signature
-
+        transaction
     #checking input sources
     #checking output sum
     pass
