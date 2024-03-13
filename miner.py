@@ -27,7 +27,7 @@ class Block:
         self.hash=None
         self.nonce=None
         self.difficultly_threshold=difficultly_threshold
-        self.merkle_tree_hash=create_merkle_tree(self.txn_list)
+        self.merkle_tree_hash=self.create_merkle_tree(self.txn_list)
 
     def hash_block(self):
         sha=hashlib.sha256()
@@ -92,7 +92,8 @@ def create_genesis_block():
 
 def verify_txn(transaction):
     #checking signature
-        transaction
+    transaction
+    # vedant here!!
     #checking input sources
     #checking output sum
     pass
